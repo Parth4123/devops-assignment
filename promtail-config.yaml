@@ -41,4 +41,4 @@ scrape_configs:
           span_id:
           trace_id:
       - output:
-          source: body  # Use 'body' as the main log line
+          source: body

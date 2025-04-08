@@ -1,35 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_LOKI",
-      "label": "Loki",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "loki",
-      "pluginName": "Loki"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.6.0"
-    },
-    {
-      "type": "datasource",
-      "id": "loki",
-      "name": "Loki",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -49,13 +18,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 3,
   "links": [],
   "panels": [
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "Loki"
       },
       "fieldConfig": {
         "defaults": {
@@ -95,11 +64,35 @@
                 "value": 176
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "observed_timestamp_rfc3339"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 313
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "job"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 143
+              }
+            ]
           }
         ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 24,
         "x": 0,
         "y": 0
@@ -116,20 +109,21 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "observed_timestamp_rfc3339"
+          }
+        ]
       },
       "pluginVersion": "11.6.0",
       "targets": [
         {
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{severity_text=~\"$Severity\", instrumentation_scope=~\"$Scope\", resource=~\"$Resource\"}\r\n\r\n",
+          "expr": "{severity_text=~\"$Severity\", instrumentation_scope=~\"$Scope\", resource=~\"$Resource\",observed_timestamp_rfc3339=\"$observed_timestamp\"}\r\n\r\n",
           "queryType": "range",
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          }
+          "refId": "A"
         }
       ],
       "title": "Log Lines",
@@ -149,8 +143,7 @@
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "P8E80F9AEF21F6940"
       },
       "fieldConfig": {
         "defaults": {
@@ -184,10 +177,17 @@
               "id": "byName",
               "options": "Time"
             },
+            "properties": []
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "observed_timestamp_rfc3339"
+            },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 175
+                "value": 401
               }
             ]
           }
@@ -197,7 +197,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 12
       },
       "id": 2,
       "options": {
@@ -218,13 +218,9 @@
         {
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{job=\"sample-logs\", observed_timestamp_rfc3339=\"$observed_timestamp\"}",
+          "expr": "{observed_timestamp_rfc3339=\"$observed_timestamp\"}",
           "queryType": "range",
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          }
+          "refId": "A"
         }
       ],
       "title": "Observed TImeStamp",
@@ -243,12 +239,19 @@
       "type": "table"
     }
   ],
+  "preload": false,
   "schemaVersion": 41,
-  "tags": [],
+  "tags": [
+    "logs",
+    "loki"
+  ],
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "text": "INFO",
+          "value": "INFO"
+        },
         "definition": "",
         "includeAll": true,
         "name": "Severity",
@@ -264,7 +267,10 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "text": "robot_events",
+          "value": "robot_events"
+        },
         "definition": "",
         "includeAll": true,
         "name": "Scope",
@@ -280,7 +286,10 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "text": "API-Gateway",
+          "value": "API-Gateway"
+        },
         "definition": "",
         "includeAll": true,
         "name": "Resource",
@@ -296,7 +305,10 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "text": "2025-04-07T13:53:07.798867+05:30",
+          "value": "2025-04-07T13:53:07.798867+05:30"
+        },
         "definition": "",
         "name": "observed_timestamp",
         "options": [],
@@ -320,6 +332,5 @@
   "timezone": "browser",
   "title": "Sample Logs Dashboard Copy",
   "uid": "deiaodtlk9vk0a",
-  "version": 1,
-  "weekStart": ""
+  "version": 4
 }
