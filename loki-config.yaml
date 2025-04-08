@@ -21,16 +21,16 @@ ingester:
       kvstore:
         store: inmemory
       replication_factor: 1
-  chunk_idle_period: 5m       # Reasonable for testing
-  max_chunk_age: 1h          # Reasonable for testing
-  chunk_target_size: 1048576 # 1MB, good default
+  chunk_idle_period: 5m      
+  max_chunk_age: 1h          
+  chunk_target_size: 1048576 
 
 schema_config:
   configs:
-    - from: 2025-04-01       # Adjusted to cover your log dates
-      store: tsdb            # Switch to TSDB for better performance
+    - from: 2025-04-01       
+      store: tsdb           
       object_store: filesystem
-      schema: v13            # Latest schema version
+      schema: v13            
       index:
         prefix: index_
         period: 24h
