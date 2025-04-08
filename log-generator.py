@@ -47,7 +47,7 @@ def generate_log():
         "trace_id": str(uuid.uuid4())
     }
 
-log_file = "sample-logs/app.log"
+log_file = "/var/log/sample-logs/app.log"
 
 while True:
     log = generate_log()
