@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 7,
   "links": [],
   "panels": [
     {
@@ -121,7 +121,7 @@
         {
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{severity_text=~\"$Severity\", instrumentation_scope=~\"$Scope\", resource=~\"$Resource\",observed_timestamp_rfc3339=\"$observed_timestamp\"}\r\n\r\n",
+          "expr": "{severity_text=~\"$Severity\", instrumentation_scope=~\"$Scope\", resource=~\"$Resource\"}\r\n\r\n",
           "queryType": "range",
           "refId": "A"
         }
@@ -148,14 +148,40 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 59,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "inspect": false
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -184,12 +210,7 @@
               "id": "byName",
               "options": "observed_timestamp_rfc3339"
             },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 401
-              }
-            ]
+            "properties": []
           }
         ]
       },
@@ -201,42 +222,31 @@
       },
       "id": 2,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showHeader": true,
-        "sortBy": []
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "11.6.0",
       "targets": [
         {
           "direction": "backward",
           "editorMode": "code",
-          "expr": "{observed_timestamp_rfc3339=\"$observed_timestamp\"}",
+          "expr": "sum(count_over_time({job=\"sample-logs\"}[1m]))",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Observed TImeStamp",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "delimiter": ",",
-            "format": "json",
-            "keepTime": true,
-            "replace": true,
-            "source": "labels"
-          }
-        }
-      ],
-      "type": "table"
+      "title": "Log Frequency Over Time (1-Min Buckets)",
+      "transparent": true,
+      "type": "timeseries"
     }
   ],
   "preload": false,
@@ -249,8 +259,8 @@
     "list": [
       {
         "current": {
-          "text": "INFO",
-          "value": "INFO"
+          "text": "All",
+          "value": "$__all"
         },
         "definition": "",
         "includeAll": true,
@@ -268,8 +278,8 @@
       },
       {
         "current": {
-          "text": "robot_events",
-          "value": "robot_events"
+          "text": "All",
+          "value": "$__all"
         },
         "definition": "",
         "includeAll": true,
@@ -287,8 +297,8 @@
       },
       {
         "current": {
-          "text": "API-Gateway",
-          "value": "API-Gateway"
+          "text": "All",
+          "value": "$__all"
         },
         "definition": "",
         "includeAll": true,
@@ -296,24 +306,6 @@
         "options": [],
         "query": {
           "label": "resource",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "",
-          "type": 1
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "current": {
-          "text": "2025-04-07T13:53:07.798867+05:30",
-          "value": "2025-04-07T13:53:07.798867+05:30"
-        },
-        "definition": "",
-        "name": "observed_timestamp",
-        "options": [],
-        "query": {
-          "label": "observed_timestamp_rfc3339",
           "refId": "LokiVariableQueryEditor-VariableQuery",
           "stream": "",
           "type": 1
@@ -330,7 +322,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Sample Logs Dashboard Copy",
+  "title": "Final Sample Logs Dashboard",
   "uid": "deiaodtlk9vk0a",
-  "version": 4
+  "version": 2
 }
